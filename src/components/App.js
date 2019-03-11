@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Projects from "./Projects";
-import SocialProfiles from "./SocialProfiles";
-import profile from "./assets/david.jpg";
+import Projects from "../Projects";
+import SocialProfiles from "../SocialProfiles";
+import profile from "../assets/david.jpg";
 import Title from "./Title";
 
 class App extends Component {
