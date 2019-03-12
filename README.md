@@ -1,4 +1,4 @@
-This project was initially bootstrapped with [Create React App](https://github.com/facebook/create-react-app) but later refactored using parcel bundler and babel.
+This project was built using parcel bundler and babel.
 
 ## Available Scripts
 
