@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SOCIAL_PROFILES from "./data/socialProfile";
+import SOCIAL_PROFILES from "../data/socialProfile";
 
 class SocialProfile extends Component {
   render() {
