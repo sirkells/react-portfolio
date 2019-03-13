@@ -5,6 +5,7 @@ import createBrowserHistory from "history/createBrowserHistory";
 import App from "./components/App";
 import Jokes from "./components/Jokes";
 import Header from "./components/Header";
+import Musicaly from "./projects/musicaly";
 import "./index.css";
 
 ReactDom.render(
@@ -27,6 +28,14 @@ ReactDom.render(
         render={() => (
           <Header>
             <Jokes />
+          </Header>
+        )}
+      />
+      <Route
+        path="/musicaly"
+        render={() => (
+          <Header>
+            <Musicaly />
           </Header>
         )}
       />

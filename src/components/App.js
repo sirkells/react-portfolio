@@ -3,7 +3,6 @@ import Projects from "./Projects";
 import SocialProfiles from "./SocialProfiles";
 import profile from "../assets/david.jpg";
 import Title from "./Title";
-import Header from "./Header";
 
 class App extends Component {
   state = {

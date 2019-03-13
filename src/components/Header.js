@@ -20,6 +20,9 @@ const Header = props => {
         <h3 style={style}>
           <Link to="/jokes">Jokes</Link>
         </h3>
+        <h3 style={style}>
+          <Link to="/musicaly">Musicaly</Link>
+        </h3>
       </div>
       {props.children}
     </div>
