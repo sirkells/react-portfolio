@@ -26,7 +26,6 @@ class Jokes extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({ jokes: res });
-        console.log(this.state.jokes);
       });
   };
 

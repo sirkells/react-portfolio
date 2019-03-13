@@ -31,7 +31,6 @@ class App extends Component {
       .catch(err => alert(err.message));
   };
   render() {
-    console.log("state:", this.state);
     const { artistData, topTracks } = this.state;
     return (
       <div>

@@ -30078,8 +30078,6 @@ function (_Component) {
         _this.setState({
           jokes: res
         });
-
-        console.log(_this.state.jokes);
       });
     });
 
@@ -30499,7 +30497,6 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log("state:", this.state);
       var _this$state = this.state,
           artistData = _this$state.artistData,
           topTracks = _this$state.topTracks;
