@@ -29945,7 +29945,7 @@ function (_Component) {
         src: _david.default,
         alt: "profile",
         className: "profile"
-      }), _react.default.createElement("h1", null, "Hello!"), _react.default.createElement("p", null, "My name is Kelechiiiii "), _react.default.createElement(_Title.default, null), _react.default.createElement("p", null, "I have great desire to work on innovative and exciting projects"), displayBio ? _react.default.createElement("div", null, _react.default.createElement("p", null, "I live in Siegburg, Germany and i code Everyday"), _react.default.createElement("p", null, "I enjoy working with Javascript and Python "), _react.default.createElement("p", null, "For Javascript i use React and Vue while for Python i use Django and Flask"), _react.default.createElement("button", {
+      }), _react.default.createElement("h1", null, "Hello!"), _react.default.createElement("p", null, "My name is Kelechi "), _react.default.createElement(_Title.default, null), _react.default.createElement("p", null, "I have great desire to work on innovative and exciting projects"), displayBio ? _react.default.createElement("div", null, _react.default.createElement("p", null, "I live in Siegburg, Germany and i code Everyday"), _react.default.createElement("p", null, "I enjoy working with Javascript and Python "), _react.default.createElement("p", null, "For Javascript i use React and Vue while for Python i use Django and Flask"), _react.default.createElement("button", {
         onClick: this.toggleBio
       }, "Show less")) : _react.default.createElement("div", null, _react.default.createElement("button", {
         onClick: this.toggleBio
@@ -30137,17 +30137,27 @@ var Artist = function Artist(props) {
       name = _props$artist.name,
       followers = _props$artist.followers,
       genres = _props$artist.genres;
-  return _react.default.createElement("div", null, _react.default.createElement("h3", null, name), _react.default.createElement("p", null, followers.total, " followers"), _react.default.createElement("p", null, genres.join(", ")), _react.default.createElement("img", {
-    //   images[0] && images[0].url handles no image data
-    src: images[0] && images[0].url,
-    alt: "artist-image",
-    style: {
-      height: 200,
-      width: 200,
-      borderRadius: 100,
-      objectFit: "cover"
-    }
-  }));
+  var genre = [genres.join(", ")];
+  console.log(genre);
+  var style = {
+    color: "black",
+    fontFamily: "Georgia",
+    fontStyle: "italic",
+    fontWeight: "normal"
+  };
+  return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("div", {
+    className: "content"
+  }, _react.default.createElement("div", {
+    className: "left floated meta",
+    style: style
+  }, name), _react.default.createElement("div", {
+    className: "right floated meta",
+    style: style
+  }, _react.default.createElement("i", {
+    className: "user icon"
+  }), followers.total), _react.default.createElement("a", {
+    style: style
+  }, genres.join(", "))));
 };
 
 var _default = Artist;
@@ -30257,9 +30267,11 @@ function (_Component) {
       }
 
       if (_this.state.isPlaying && _this.state.currenTrackUrl === track.preview_url) {
+        _this.icon = "pause icon";
         return _react.default.createElement("span", null, "| |");
       }
 
+      _this.icon = "play icon";
       return _react.default.createElement("span", null, "\u25B6");
     });
 
@@ -30271,6 +30283,7 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      var icon = "pause icon";
       var tracks = this.props.tracks;
       return _react.default.createElement("div", null, tracks.map(function (track) {
         var id = track.id,
@@ -30280,16 +30293,25 @@ function (_Component) {
         return _react.default.createElement("div", {
           key: id,
           className: "track"
+        }, _react.default.createElement("div", {
+          className: "ui cards"
+        }, _react.default.createElement("div", {
+          className: "card"
+        }, _react.default.createElement("div", {
+          className: "image"
         }, _react.default.createElement("img", {
           src: album.images[0].url,
-          alt: "track-image",
-          className: "track-image"
-        }), _react.default.createElement("p", {
-          className: "track-text"
-        }, name), _react.default.createElement("p", {
-          className: "track-icon",
+          alt: "track-image"
+        })), _react.default.createElement("div", {
+          className: "ui fluid"
+        }, _react.default.createElement("div", {
+          className: "black ui icon buttons fluid"
+        }, _react.default.createElement("button", {
+          className: "ui button"
+        }, name), _react.default.createElement("button", {
+          className: "ui button",
           onClick: _this2.playTrack(preview_url)
-        }, _this2.trackIcon(track)));
+        }, _this2.trackIcon(track)))))));
       }));
     }
   }]);
@@ -30376,14 +30398,19 @@ function (_Component) {
   _createClass(Search, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("input", {
+      return _react.default.createElement("div", {
+        className: "ui action input"
+      }, _react.default.createElement("input", {
         type: "text",
         placeholder: "Search for Artist",
         onChange: this.updateSearchQuery,
         onKeyPress: this.handleKeyPress
       }), _react.default.createElement("button", {
+        className: "ui icon button",
         onClick: this.searchArtist
-      }, "Search"));
+      }, _react.default.createElement("i", {
+        className: "search icon"
+      })));
     }
   }]);
 
@@ -30433,6 +30460,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var URL_ADDRESS = "https://spotify-api-wrapper.appspot.com";
+var DEFAULT_ARTIST = "Coldplay";
+var Background = "http://wallpoper.com/images/00/24/09/32/abstract-music_00240932.jpg";
 
 var App =
 /*#__PURE__*/
@@ -30454,7 +30483,16 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       artistData: null,
-      topTracks: []
+      topTracks: [],
+      Notloaded: true
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "artistName", function () {
+      if (_this.state.Notloaded) {
+        return DEFAULT_ARTIST;
+      }
+
+      return _this.state.artistData.artist.name;
     });
 
     _defineProperty(_assertThisInitialized(_this), "searchArtist", function (searchQuery) {
@@ -30465,9 +30503,11 @@ function (_Component) {
         // check if the artist in searchQuery exist in the api
         if (res.artists.total > 0) {
           var artistData = res.artists.items[0];
+          console.log(artistData);
 
           _this.setState({
-            artistData: artistData
+            artistData: artistData,
+            Notloaded: false
           }); // fetches top track of artist based on artist id
 
 
@@ -30492,19 +30532,26 @@ function (_Component) {
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.searchArtist("burna boy");
+      this.searchArtist(DEFAULT_ARTIST);
     }
   }, {
     key: "render",
     value: function render() {
       var _this$state = this.state,
           artistData = _this$state.artistData,
-          topTracks = _this$state.topTracks;
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Musicaly"), _react.default.createElement(_Search.default, {
+          topTracks = _this$state.topTracks,
+          Notloaded = _this$state.Notloaded;
+      return _react.default.createElement("div", {
+        style: {
+          backgroundImage: "url(".concat(Notloaded ? Background : artistData.images[0].url, ")"),
+          backgroundSize: "cover",
+          overflow: "hidden"
+        }
+      }, _react.default.createElement("h1", null, "Musicaly"), _react.default.createElement(_Search.default, {
         searchArtist: this.searchArtist
       }), _react.default.createElement(_Artist.default, {
         artist: artistData
-      }), _react.default.createElement(_Tracks.default, {
+      }), _react.default.createElement("h1", null, this.artistName, " Top Ten Tracks"), _react.default.createElement(_Tracks.default, {
         tracks: topTracks
       }));
     }
@@ -30698,7 +30745,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51715" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60768" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

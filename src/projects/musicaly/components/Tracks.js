@@ -46,13 +46,15 @@ class Tracks extends Component {
       this.state.isPlaying &&
       this.state.currenTrackUrl === track.preview_url
     ) {
+      this.icon = "pause icon";
       return <span>| |</span>;
     }
-
+    this.icon = "play icon";
     return <span>&#9654;</span>;
   };
 
   render() {
+    let icon = "pause icon";
     const { tracks } = this.props;
     return (
       <div>
@@ -60,15 +62,24 @@ class Tracks extends Component {
           const { id, name, album, preview_url } = track;
           return (
             <div key={id} className="track">
-              <img
-                src={album.images[0].url}
-                alt="track-image"
-                className="track-image"
-              />
-              <p className="track-text">{name}</p>
-              <p className="track-icon" onClick={this.playTrack(preview_url)}>
-                {this.trackIcon(track)}
-              </p>
+              <div className="ui cards">
+                <div className="card">
+                  <div className="image">
+                    <img src={album.images[0].url} alt="track-image" />
+                  </div>
+                  <div className="ui fluid">
+                    <div className="black ui icon buttons fluid">
+                      <button className="ui button">{name}</button>
+                      <button
+                        className="ui button"
+                        onClick={this.playTrack(preview_url)}
+                      >
+                        {this.trackIcon(track)}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           );
         })}

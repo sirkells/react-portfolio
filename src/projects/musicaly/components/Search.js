@@ -18,14 +18,16 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
+      <div className="ui action input">
         <input
           type="text"
           placeholder="Search for Artist"
           onChange={this.updateSearchQuery}
           onKeyPress={this.handleKeyPress}
         />
-        <button onClick={this.searchArtist}>Search</button>
+        <button className="ui icon button" onClick={this.searchArtist}>
+          <i className="search icon" />
+        </button>
       </div>
     );
   }
