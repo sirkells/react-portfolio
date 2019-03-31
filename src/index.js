@@ -19,6 +19,7 @@ ReactDom.render(
         path="/"
         render={() => (
           <Header>
+            <br />
             <App />
           </Header>
         )}

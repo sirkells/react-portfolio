@@ -44,13 +44,13 @@ class App extends Component {
 
     return (
       <div
-        style={{
-          backgroundImage: `url(${
-            Notloaded ? Background : artistData.images[0].url
-          })`,
-          backgroundSize: "cover",
-          overflow: "hidden"
-        }}
+      // style={{
+      //   backgroundImage: `url(${
+      //     Notloaded ? Background : artistData.images[0].url
+      //   })`,
+      //   backgroundSize: "cover",
+      //   overflow: "hidden"
+      // }}
       >
         <h1>Musicaly</h1>
         <Search searchArtist={this.searchArtist} />

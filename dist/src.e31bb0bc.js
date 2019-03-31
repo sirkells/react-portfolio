@@ -29958,7 +29958,79 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Projects":"components/Projects.js","./SocialProfiles":"components/SocialProfiles.js","../assets/david.jpg":"assets/david.jpg","./Title":"components/Title.js"}],"components/Header.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Projects":"components/Projects.js","./SocialProfiles":"components/SocialProfiles.js","../assets/david.jpg":"assets/david.jpg","./Title":"components/Title.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/header.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Header.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29970,37 +30042,35 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
+require("./header.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // the Header takes a child component as a prop
 // the component is placed in between the tags wherever the header component is used
 var Header = function Header(props) {
-  var style = {
-    display: "inline-block",
-    margin: 10,
-    marginBottom: 30
-  };
   return (// header is made a higher order component
     // other component are rendered under it as children
-    _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("h3", {
-      style: style
+    _react.default.createElement("div", null, _react.default.createElement("div", null, _react.default.createElement("header", {
+      className: "bg-black-90 fixed w-100 ph3 pv3 pv4-ns ph4-m ph5-l"
+    }, _react.default.createElement("nav", {
+      className: "f6 ttu tracked "
     }, _react.default.createElement(_reactRouterDom.Link, {
+      className: "link dim white dib mr3 fw6",
       to: "/"
-    }, "Home")), _react.default.createElement("h3", {
-      style: style
-    }, _react.default.createElement(_reactRouterDom.Link, {
+    }, "Home"), _react.default.createElement(_reactRouterDom.Link, {
+      className: "link dim white dib mr3 fw6",
       to: "/jokes"
-    }, "Jokes")), _react.default.createElement("h3", {
-      style: style
-    }, _react.default.createElement(_reactRouterDom.Link, {
+    }, "Jokes"), _react.default.createElement(_reactRouterDom.Link, {
+      className: "link dim white dib mr3 fw6",
       to: "/musicaly"
-    }, "Musicaly"))), props.children)
+    }, "Musicaly")))), props.children)
   );
 };
 
 var _default = Header;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js"}],"components/Jokes.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./header.css":"components/header.css"}],"components/Jokes.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30139,25 +30209,19 @@ var Artist = function Artist(props) {
       genres = _props$artist.genres;
   var genre = [genres.join(", ")];
   console.log(genre);
-  var style = {
-    color: "black",
-    fontFamily: "Georgia",
-    fontStyle: "italic",
-    fontWeight: "normal"
-  };
-  return _react.default.createElement("div", null, _react.default.createElement("br", null), _react.default.createElement("div", {
-    className: "content"
+  return _react.default.createElement("div", {
+    className: "ui centered card"
   }, _react.default.createElement("div", {
-    className: "left floated meta",
-    style: style
+    className: "green content"
+  }, _react.default.createElement("a", {
+    className: "header"
   }, name), _react.default.createElement("div", {
-    className: "right floated meta",
-    style: style
-  }, _react.default.createElement("i", {
+    className: "description"
+  }, genres.join(", "))), _react.default.createElement("div", {
+    className: "extra content"
+  }, _react.default.createElement("a", null, _react.default.createElement("i", {
     className: "user icon"
-  }), followers.total), _react.default.createElement("a", {
-    style: style
-  }, genres.join(", "))));
+  }), followers.total, " followers")));
 };
 
 var _default = Artist;
@@ -30541,13 +30605,7 @@ function (_Component) {
           artistData = _this$state.artistData,
           topTracks = _this$state.topTracks,
           Notloaded = _this$state.Notloaded;
-      return _react.default.createElement("div", {
-        style: {
-          backgroundImage: "url(".concat(Notloaded ? Background : artistData.images[0].url, ")"),
-          backgroundSize: "cover",
-          overflow: "hidden"
-        }
-      }, _react.default.createElement("h1", null, "Musicaly"), _react.default.createElement(_Search.default, {
+      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Musicaly"), _react.default.createElement(_Search.default, {
         searchArtist: this.searchArtist
       }), _react.default.createElement(_Artist.default, {
         artist: artistData
@@ -30562,74 +30620,7 @@ function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Artist":"projects/musicaly/components/Artist.js","./Tracks":"projects/musicaly/components/Tracks.js","./Search":"projects/musicaly/components/Search.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"projects/musicaly/index.css":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Artist":"projects/musicaly/components/Artist.js","./Tracks":"projects/musicaly/components/Tracks.js","./Search":"projects/musicaly/components/Search.js"}],"projects/musicaly/index.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -30687,7 +30678,7 @@ _react.default.createElement(_reactRouterDom.Router, {
   exact: true,
   path: "/",
   render: function render() {
-    return _react.default.createElement(_Header.default, null, _react.default.createElement(_App.default, null));
+    return _react.default.createElement(_Header.default, null, _react.default.createElement("br", null), _react.default.createElement(_App.default, null));
   }
 }), _react.default.createElement(_reactRouterDom.Route, {
   path: "/jokes",
@@ -30745,7 +30736,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60768" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62644" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

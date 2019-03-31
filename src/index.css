@@ -12,8 +12,20 @@
 body {
   text-align: center;
   font-size: 20px;
+  color: darkgray;
   padding: 2.5%;
+  padding-top: 100px;
   font-family: "RobotoCondensed";
+  background: linear-gradient(
+    to left,
+    rgb(52, 90, 102) 0%,
+    rgb(26, 32, 37) 100%
+  );
+}
+.links {
+  display: inline-block;
+  margin: 10px;
+  margin-bottom: 30px;
 }
 
 h1,
